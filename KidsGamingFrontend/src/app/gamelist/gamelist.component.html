@@ -1,0 +1,84 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th> 
+        <th scope="col">GAME NAME</th>
+        <th scope="col">GAME PRICE</th>
+        <th scope="col" >ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of gamelist,let i=index">
+        <td>{{i+1}}</td>
+        <td>{{item.gameName}}</td>
+        <td>{{item.gamePrice}}</td>
+        <ng-container *ngIf="role=='Admin'; else elseBlock">
+        <td ><button type="submit" class="btn btn-warning mx-2"  (click)="edit(i)" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+            <button type="submit" class="btn btn-danger" (click)="delete(item.gameId)">Delete</button>
+        </td>
+    </ng-container>
+    <ng-template #elseBlock>
+          <td><button type="submit" class="btn btn-primary" (click)="Buy(item.gameId)" data-bs-toggle="modal" data-bs-target="#exampleModal">Buy</button>
+        </td>
+    </ng-template>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- -->
+
+
+  <!-- EDIT MODAL -->
+  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="editform">
+            <div class="form-group">
+              <label for="Pname">Game Id:</label>
+              <input
+                type="text"
+                name="Gname"
+                id="Gname"
+                class="form-control"
+                formControlName="gameName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Pname">Game Name:</label>
+              <input
+                type="text"
+                name="Gname"
+                id="Gname"
+                class="form-control"
+                formControlName="gameName"
+              />
+            </div>
+
+
+            <div class="form-group">
+              <label for="Pdescription">Game Price:</label>
+              <input
+                type="text"
+                name="Gprice"
+                id="Gprice"
+                class="form-control"
+                formControlName="gamePrice"
+              />
+            </div>
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="submit()">Submit</button>
+
+          </form>
+
+          </div>
+
+      </div>
+    </div>
+  </div>

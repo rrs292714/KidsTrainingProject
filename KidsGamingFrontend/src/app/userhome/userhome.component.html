@@ -1,0 +1,118 @@
+<div class="text-center my-3 bg-light shadow py-2" *ngIf="membership==1">
+  <p><span class="fs-3 text-danger">Limited Offer :</span> <span class="fs-3"> Membership Of 10000Rs and get access to 200 <span class="text-success">GAMES!!!</span></span></p>
+<button type="submit" class="btn btn-warning mx-auto shadow py-2" (click)="purchaseMembership()">Purchase Membership</button>
+</div>
+<div class="container py-2">
+  <span class="fs-3 text-black mx-2"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="avtar" style="width: 5%;" class="rounded-circle"> {{fullname}}</span>
+  <span *ngIf="membership==2"><img src="../../assets/verify.png" alt="verify" style="width: 2%;" class="rounded-circle mx-2"></span>
+  <button class="btn btn-primary" (click)="logout()">Logout</button>
+  
+</div>
+<ng-container *ngIf="membership==2">
+<ng-container *ngFor="let item of ticketdata">
+  <div class="fs-2 shadow text-center">Tickets Available : {{item.status}}</div>
+</ng-container>
+</ng-container>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th> 
+        <th scope="col">GAME NAME</th>
+        <ng-container *ngIf="membership==1">
+          <th scope="col">GAME PRICE</th>
+         </ng-container>
+        
+        <th scope="col" class="text-center" >ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of gamelist,let i=index">
+        <td>{{i+1}}</td>
+        <td>{{item.gameName}}</td>
+        <ng-container *ngIf="membership==1">
+        <td>{{item.gamePrice}}</td>
+       </ng-container>
+       <ng-container *ngIf="membership==2; else elseBlock" >
+        <td class="text-center"><button type="submit" class="btn btn-primary w-50 " (click)="play()">Play</button>
+        </td>
+      </ng-container>
+        <ng-template #elseBlock>
+          <td class="text-center"><button type="submit" class="btn btn-primary w-50 " (click)="Buy(i)" data-bs-toggle="modal" data-bs-target="#exampleModal">Play</button>
+          </td>
+        </ng-template> 
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+
+  <!-- EDIT MODAL -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">GAME DETAILS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="buyform">
+            <!-- <div class="form-group">
+              <label for="Pname">Game Name:</label>
+              <input
+                type="text"
+                name="Gname"
+                id="Gname"
+                class="form-control"
+                
+                formControlName="gameName"
+              />
+            </div> -->
+            <div class="text-center">
+              <span class="fs-2 text-center">Pay Rs:100 To Start The Game</span>
+            </div>
+         
+           <div class="py-2 mx-2">
+            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary mx-2" data-bs-dismiss="modal" (click)="otpgen()"  data-bs-toggle="modal" data-bs-target="#otpmodal">Pay</button>
+          </div>
+          </form>
+
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- OTP MODAL-->
+
+  <div class="modal fade" id="otpmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">OTP CONFIRMATION</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="otpform">
+            <div class="form-group">
+              <label for="otp">OTP</label>
+              <input
+                type="text"
+                name="otp"
+                id="otp"
+                class="form-control"
+                formControlName="otp"
+              />
+            </div>
+           <div class="py-2 mx-2">
+            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary mx-2" data-bs-dismiss="modal" (click)="checkotp()"  data-bs-toggle="modal" data-bs-target="#otpmodal">Verify</button>
+          </div>
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>

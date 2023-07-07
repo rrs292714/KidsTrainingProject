@@ -1,0 +1,22 @@
+<div class="bg-dark p-3 rounded">
+    <h2 class="fw-bold mb-2 text-uppercase text-white text-center">Sign Up</h2>
+<form [formGroup]="registerForm">
+    <div class="mb-3">
+      <label for="fullName" class="form-label text-white">Full Name:</label>
+      <input type="text" class="form-control" id="fullName" aria-describedby="emailHelp" formControlName="FullName" >
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="Email">
+      </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-white">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" formControlName="Password">
+    </div>
+    <button type="submit" class="btn btn-outline-light btn-lg px-5 text-center" (click)="OnRegister()">Register</button>
+  </form>
+  <div>
+    <p class="my-2 text-white">Already Have an Account? <a [routerLink]="['/login']" routerLinkActive="router-link-active"  class="text-white-50 fw-bold">Login</a>
+    </p>
+  </div>
+</div>
